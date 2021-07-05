@@ -112,6 +112,12 @@ function onGalleryClick(e) {
   e.preventDefault();
 
   const galleryImage = e.target;
+  const activeImage = document.querySelector('.gallery__image .is-active');
+
+  if (activeImage) {
+    activeImage.classList.remove('is-active');
+  }
+
   galleryImage.classList.add('is-active');
 
   openModal(lightbox.modalRef);
@@ -120,6 +126,7 @@ function onGalleryClick(e) {
 
 function openModal(modalRef) {
   modalRef.classList.add('is-open');
+  buttonNavigation();
   closeModal(lightbox);
 }
 
@@ -131,17 +138,17 @@ function replacementImage(newImageRef, oldImageRef) {
   oldImageRef.alt = altNewImage;
 }
 
-function closeModal({ closeBtnRef, overlayRef, prevBtnRef }) {
+function closeModal({ closeBtnRef, overlayRef }) {
   closeBtnRef.addEventListener('click', onCloseModalBtnClick);
   overlayRef.addEventListener('click', onOverlayModalClick);
   window.addEventListener('keydown', onPressKeyEsc);
-  buttonNavigation();
 }
 
 function onCloseModalBtnClick() {
   lightbox.modalRef.classList.remove('is-open');
   this.removeEventListener('click', onCloseModalBtnClick);
   lightbox.prevBtnRef.removeEventListener('click', onPrevBtnClick);
+  lightbox.nextBtnRef.removeEventListener('click', onPrevBtnClick);
 }
 
 function onOverlayModalClick(e) {
@@ -152,6 +159,7 @@ function onOverlayModalClick(e) {
   lightbox.modalRef.classList.remove('is-open');
   lightbox.modalRef.removeEventListener('click', onOverlayModalClick);
   lightbox.prevBtnRef.removeEventListener('click', onPrevBtnClick);
+  lightbox.nextBtnRef.removeEventListener('click', onPrevBtnClick);
 }
 
 function onPressKeyEsc(e) {
@@ -162,6 +170,7 @@ function onPressKeyEsc(e) {
   lightbox.modalRef.classList.remove('is-open');
   window.removeEventListener('keydown', onPressKeyEsc);
   lightbox.prevBtnRef.removeEventListener('click', onPrevBtnClick);
+  lightbox.nextBtnRef.removeEventListener('click', onPrevBtnClick);
 }
 
 function buttonNavigation() {

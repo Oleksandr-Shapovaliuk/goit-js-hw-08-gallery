@@ -112,7 +112,7 @@ function onGalleryClick(e) {
   e.preventDefault();
 
   const galleryImage = e.target;
-  const activeImage = document.querySelector('.gallery__image .is-active');
+  const activeImage = document.querySelector('.gallery__image.is-active');
 
   if (activeImage) {
     activeImage.classList.remove('is-active');
